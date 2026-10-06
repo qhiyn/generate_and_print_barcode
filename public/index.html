@@ -1,67 +1,105 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="id">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Inventaris Belanja Kantor</title>
-<link rel="stylesheet" href="/styles.css">
-</head>
-<body>
-<header>
-  <h1>Inventaris Belanja Kantor</h1>
-  <div id="error" class="error hidden"></div>
-</header>
-<main>
-  <section class="toolbar">
-    <label>Periode
-      <select id="periodFilter">
-        <option value="">Semua</option>
-        <option value="2" selected>September 2026 (OPEN)</option>
-        <option value="1">Agustus 2026 (CLOSED)</option>
-      </select>
-    </label>
-    <label>Barcode
-      <select id="barcodeFilter">
-        <option value="">Semua</option>
-        <option value="true">Sudah ada</option>
-        <option value="false">Belum ada</option>
-      </select>
-    </label>
-    <label>Cari Barcode
-      <span class="searchrow"><input id="searchBarcode" placeholder="BLJ-202609-0001"><button id="searchBtn" type="button">Cari</button><button id="resetBtn" type="button">Reset</button></span>
-    </label>
-    <button id="addBtn">+ Tambah Barang</button>
-    <button id="generateBtn">Generate Barcode</button>
-    <label>Copies <input id="copies" type="number" min="1" max="50" value="1"></label>
-    <button id="printBtn">Print Label</button>
-  </section>
-  <table>
-    <thead>
-      <tr><th><input type="checkbox" id="selectAll"></th><th>ID</th><th>Nama</th><th>Barcode</th><th>Kategori</th><th>Unit</th><th>Qty</th><th>Stok</th><th>Harga</th><th>Aksi</th></tr>
-    </thead>
-    <tbody id="rows"></tbody>
-  </table>
-  <div class="pager">
-    <button id="prevBtn">Prev</button>
-    <span id="pageInfo"></span>
-    <button id="nextBtn">Next</button>
-  </div>
-  <dialog id="itemDialog">
-    <form method="dialog" id="itemForm">
-      <h3 id="dialogTitle">Tambah Barang</h3>
-      <input type="hidden" id="fId">
-      <label>Period ID <input id="fPeriod" type="number" value="2" required></label>
-      <label>Nama <input id="fName" required></label>
-      <label>Kategori
-        <select id="fCategory"><option>ATK</option><option>Pantry</option><option>Kebersihan</option><option>Lainnya</option></select>
-      </label>
-      <label>Unit <input id="fUnit" required></label>
-      <label>Quantity <input id="fQty" type="number" min="0" value="1" required></label>
-      <label>Harga <input id="fPrice" type="number" min="0" value="0" required></label>
-      <menu><button value="cancel">Batal</button><button id="saveBtn" value="default">Simpan</button></menu>
-    </form>
-  </dialog>
-</main>
-<script src="/app.js"></script>
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Inventaris Belanja Kantor</title>
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <header>
+      <h1>Inventaris Belanja Kantor</h1>
+      <div id="error" class="error hidden"></div>
+    </header>
+    <main>
+      <section class="toolbar">
+        <label
+          >Periode
+          <select id="periodFilter">
+            <option value="">Semua</option>
+            <option value="2" selected>September 2026 (OPEN)</option>
+            <option value="1">Agustus 2026 (CLOSED)</option>
+          </select>
+        </label>
+        <label
+          >Barcode
+          <select id="barcodeFilter">
+            <option value="">Semua</option>
+            <option value="true">Sudah ada</option>
+            <option value="false">Belum ada</option>
+          </select>
+        </label>
+        <label
+          >Cari Barcode
+          <span class="searchrow"
+            ><input id="searchBarcode" placeholder="BLJ-202609-0001" /><button
+              id="searchBtn"
+              type="button"
+            >
+              Cari</button
+            ><button id="resetBtn" type="button">Reset</button></span
+          >
+        </label>
+        <button id="addBtn">+ Tambah Barang</button>
+        <button id="generateBtn">Generate Barcode</button>
+        <label
+          >Copies <input id="copies" type="number" min="1" max="50" value="1"
+        /></label>
+        <button id="printBtn">Print Label</button>
+      </section>
+      <table>
+        <thead>
+          <tr>
+            <th><input type="checkbox" id="selectAll" /></th>
+            <th>ID</th>
+            <th>Nama</th>
+            <th>Barcode</th>
+            <th>Kategori</th>
+            <th>Unit</th>
+            <th>Qty</th>
+            <th>Stok</th>
+            <th>Harga</th>
+            <th>Aksi</th>
+          </tr>
+        </thead>
+        <tbody id="rows"></tbody>
+      </table>
+      <div class="pager">
+        <button id="prevBtn">Prev</button>
+        <span id="pageInfo"></span>
+        <button id="nextBtn">Next</button>
+      </div>
+      <dialog id="itemDialog">
+        <form method="dialog" id="itemForm">
+          <h3 id="dialogTitle">Tambah Barang</h3>
+          <input type="hidden" id="fId" />
+          <label
+            >Period ID <input id="fPeriod" type="number" value="2" required
+          /></label>
+          <label>Nama <input id="fName" required /></label>
+          <label
+            >Kategori
+            <select id="fCategory">
+              <option>ATK</option>
+              <option>Pantry</option>
+              <option>Kebersihan</option>
+              <option>Lainnya</option>
+            </select>
+          </label>
+          <label>Unit <input id="fUnit" required /></label>
+          <label
+            >Quantity <input id="fQty" type="number" min="0" value="1" required
+          /></label>
+          <label
+            >Harga <input id="fPrice" type="number" min="0" value="0" required
+          /></label>
+          <menu>
+            <button value="cancel">Batal</button
+            ><button id="saveBtn" value="default">Simpan</button>
+          </menu>
+        </form>
+      </dialog>
+    </main>
+    <script src="/app.js"></script>
+  </body>
 </html>
