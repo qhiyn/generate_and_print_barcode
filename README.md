@@ -60,3 +60,7 @@ curl 'localhost:8000/api/labels?ids=1&copies=99'          # 422 copies
 - DELETE ditolak bila `barcode NOT NULL`; semua mutasi + generate ditolak bila periode CLOSED (422).
 - Barcode `BLJ-{YYYYMM}-{NNNN}`, sequence per periode dari MAX (bukan COUNT), hanya untuk `barcode IS NULL`, permanen.
 - Labels: `copies` 1-50 default 1, duplikasi per barang; ID tak dikenal / tanpa barcode → 422 + `invalid_ids`.
+
+## GITHUB REPOSITORY
+
+https://github.com/qhiyn/generate_and_print_barcode.git
