@@ -1,0 +1,113 @@
+{
+  "info": {
+    "_postman_id": "task-b-barcode-0001",
+    "name": "Task B - Generate Print Barcode",
+    "description": "Task B Generate & Print Barcode (PHP Native). Base URL default http://localhost:8000. Jalankan: mysql < schema.sql, mysql < seed.sql, php -S localhost:8000 -t public.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [{ "key": "baseUrl", "value": "http://localhost:8000" }],
+  "item": [
+    {
+      "name": "1 - Items CRUD",
+      "item": [
+        {
+          "name": "Create Item",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"period_id\": 2,\n  \"name\": \"Amplop Coklat\",\n  \"category\": \"ATK\",\n  \"unit\": \"pack\",\n  \"quantity\": 5,\n  \"price\": 12000\n}"
+            },
+            "url": "{{baseUrl}}/api/items"
+          }
+        },
+        {
+          "name": "List Items - filter + pagination",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/items?period_id=2&has_barcode=false&page=1"
+          }
+        },
+        {
+          "name": "Get Item by ID",
+          "request": { "method": "GET", "url": "{{baseUrl}}/api/items/1" }
+        },
+        {
+          "name": "Patch Item",
+          "request": {
+            "method": "PATCH",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Kertas A4 Premium\",\n  \"price\": 60000\n}"
+            },
+            "url": "{{baseUrl}}/api/items/1"
+          }
+        },
+        {
+          "name": "Delete Item (NULL barcode, OPEN)",
+          "request": { "method": "DELETE", "url": "{{baseUrl}}/api/items/3" }
+        }
+      ]
+    },
+    {
+      "name": "2 - Barcode & Labels",
+      "item": [
+        {
+          "name": "Generate Barcodes - OPEN",
+          "request": { "method": "POST", "url": "{{baseUrl}}/api/periods/2/barcodes" }
+        },
+        {
+          "name": "Search Barcode - found",
+          "request": { "method": "GET", "url": "{{baseUrl}}/api/barcodes/BLJ-202609-0001" }
+        },
+        {
+          "name": "Get Labels copies=2",
+          "request": { "method": "GET", "url": "{{baseUrl}}/api/labels?ids=1,2&copies=2" }
+        }
+      ]
+    },
+    {
+      "name": "3 - Error cases 422 dan 404",
+      "item": [
+        {
+          "name": "ERR Generate CLOSED - 422",
+          "request": { "method": "POST", "url": "{{baseUrl}}/api/periods/1/barcodes" }
+        },
+        {
+          "name": "ERR Barcode format salah - 422",
+          "request": { "method": "GET", "url": "{{baseUrl}}/api/barcodes/SALAH" }
+        },
+        {
+          "name": "ERR Barcode tidak ada - 404",
+          "request": { "method": "GET", "url": "{{baseUrl}}/api/barcodes/BLJ-202609-9999" }
+        },
+        {
+          "name": "ERR Labels invalid_ids - 422",
+          "request": { "method": "GET", "url": "{{baseUrl}}/api/labels?ids=1,999&copies=2" }
+        },
+        {
+          "name": "ERR Labels copies 99 - 422",
+          "request": { "method": "GET", "url": "{{baseUrl}}/api/labels?ids=1&copies=99" }
+        },
+        {
+          "name": "ERR Create di CLOSED - 422",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"period_id\": 1,\n  \"name\": \"X\",\n  \"category\": \"ATK\",\n  \"unit\": \"pcs\",\n  \"quantity\": 1,\n  \"price\": 1000\n}"
+            },
+            "url": "{{baseUrl}}/api/items"
+          }
+        },
+        {
+          "name": "ERR Delete berbarcode - 422",
+          "request": { "method": "DELETE", "url": "{{baseUrl}}/api/items/1" }
+        }
+      ]
+    }
+  ]
+}

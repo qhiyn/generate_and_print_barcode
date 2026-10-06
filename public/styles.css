@@ -1,0 +1,14 @@
+body { font-family: system-ui, sans-serif; margin: 0; background: #f6f6f6; }
+header { background: #1f2937; color: #fff; padding: 12px 20px; }
+main { padding: 16px 20px; }
+.toolbar { display: flex; gap: 12px; align-items: end; flex-wrap: wrap; margin-bottom: 12px; }
+.toolbar label { display: flex; flex-direction: column; font-size: 12px; gap: 4px; }
+.searchrow { display: flex; gap: 6px; }
+table { width: 100%; border-collapse: collapse; background: #fff; }
+th, td { border: 1px solid #ddd; padding: 8px; font-size: 13px; text-align: left; }
+thead { background: #e5e7eb; }
+.pager { margin-top: 10px; display: flex; gap: 10px; align-items: center; }
+.error { background: #fee2e2; color: #991b1b; padding: 8px; margin-top: 8px; border-radius: 4px; }
+.hidden { display: none; }
+dialog { border: 1px solid #ccc; border-radius: 8px; padding: 16px; }
+dialog label { display: flex; flex-direction: column; margin-bottom: 8px; font-size: 13px; }

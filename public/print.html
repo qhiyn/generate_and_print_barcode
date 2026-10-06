@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<title>Cetak Label Barcode</title>
+<script src="https://cdn.jsdelivr.net/npm/jsbarcode@3.11.6/dist/JsBarcode.all.min.js"></script>
+<style>
+  body { font-family: system-ui, sans-serif; }
+  .no-print { margin-bottom: 12px; }
+  #labels { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+  .label { border: 1px dashed #999; padding: 8px; text-align: center; }
+  .label .name { font-size: 12px; margin-top: 4px; }
+  .label .code { font-size: 11px; font-family: monospace; }
+  #error { color: #991b1b; }
+  @media print {
+    .no-print { display: none; }
+    body { margin: 0; }
+    #labels { grid-template-columns: repeat(3, 1fr); }
+    .label { break-inside: avoid; }
+  }
+</style>
+</head>
+<body>
+<div class="no-print">
+  <button onclick="window.print()">Cetak</button>
+  <button onclick="window.close()">Tutup</button>
+  <span id="error"></span>
+</div>
+<div id="labels"></div>
+<script>
+  (async () => {
+    const q = new URLSearchParams(location.search);
+    try {
+      const res = await fetch(`/api/labels?ids=${q.get('ids') || ''}&copies=${q.get('copies') || 1}`);
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.message || 'Gagal memuat label');
+      document.getElementById('labels').innerHTML = data.data.map((l, i) => `
+        <div class="label"><svg id="bc${i}"></svg><div class="code">${l.barcode}</div><div class="name">${l.name}</div></div>
+      `).join('');
+      data.data.forEach((l, i) => JsBarcode(`#bc${i}`, l.barcode, { format: 'CODE128', width: 2, height: 60, displayValue: false }));
+    } catch (e) {
+      document.getElementById('error').textContent = e.message;
+    }
+  })();
+</script>
+</body>
+</html>

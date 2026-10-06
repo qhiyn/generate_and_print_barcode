@@ -8,7 +8,7 @@ class ItemRepository
 
     public function findPeriod(int $id): ?array
     {
-        $stmt = $this->db->prepare('SELECT * FROM priods WHERE id = ?');
+        $stmt = $this->db->prepare('SELECT * FROM periods WHERE id = ?');
         $stmt->execute([$id]);
         $row = $stmt->fetch();
         return $row ?: null;
@@ -54,9 +54,9 @@ class ItemRepository
         } elseif ($hasBarcode === false) {
             $where[] = 'i.barcode IS NULL';
         }
-        $cond = $where ? 'WHERE' . implode(' AND ', $where) : '';
+        $cond = $where ? 'WHERE ' . implode(' AND ', $where) : '';
 
-        $count = $this->db->prepare("SELECT COUNT(*) AS total FROM item i {$cond}");
+        $count = $this->db->prepare("SELECT COUNT(*) AS total FROM items i {$cond}");
         $count->execute($params);
         $total = (int) $count->fetch()['total'];
 
