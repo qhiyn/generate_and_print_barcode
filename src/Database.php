@@ -10,7 +10,7 @@ class Database
     {
         if (self::$pdo === null) {
             $host = getenv('DB_HOST') ?: '127.0.0.1';
-            $name = getenv('DB_NAME') ?: 'inventory_database';
+            $name = getenv('DB_NAME') ?: 'inventory_db';
             $user = getenv('DB_USER') ?: 'root';
             $pass = getenv('DB_PASS') ?: '';
             self::$pdo = new PDO(

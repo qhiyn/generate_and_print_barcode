@@ -1,4 +1,4 @@
-USE inventory_database;
+USE inventory_db;
 
 INSERT INTO periods (id, name, month, status) VALUES
 (1, 'AGUSTUS 2026', '2026-08', 'CLOSED'),
